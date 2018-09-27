@@ -25,4 +25,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="home_tabTextSize">
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

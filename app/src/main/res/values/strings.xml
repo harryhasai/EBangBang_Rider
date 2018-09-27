@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">EBangBang_Rider</string>
+
+    <string-array name="home_tab_name">
+        <item>新任务</item>
+        <item>正在派送中</item>
+        <item>待取货</item>
+    </string-array>
 </resources>
