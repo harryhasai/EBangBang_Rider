@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    tools:ignore="HardcodedText">
+
+    <ImageView
+        android:id="@+id/iv_food_image"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:contentDescription="food"
+        android:src="@drawable/ic_food" />
+
+    <TextView
+        android:id="@+id/tv_food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/iv_food_image"
+        android:text="东北锅包肉"
+        android:textColor="@color/black1"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_food_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_food_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@id/iv_food_image"
+        android:text="¥31.9"
+        android:textColor="@color/black1"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_food_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/tv_food_money"
+        android:text="x 1"
+        android:textColor="@color/black1"
+        android:textSize="12sp" />
+</RelativeLayout>

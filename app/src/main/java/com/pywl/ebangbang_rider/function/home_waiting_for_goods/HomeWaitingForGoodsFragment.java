@@ -1,17 +1,18 @@
 package com.pywl.ebangbang_rider.function.home_waiting_for_goods;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+import com.pywl.ebangbang_rider.network.entity.CommonItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +64,13 @@ public class HomeWaitingForGoodsFragment extends BaseFragment {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-//        recyclerView.setAdapter();
+        List<CommonItem> data = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            data.add(new CommonItem());
+        }
+        HomeWaitingForGoodsAdapter adapter = new HomeWaitingForGoodsAdapter(R.layout.item_home_waiting_for_goods, data);
+        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
