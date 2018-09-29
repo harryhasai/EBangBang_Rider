@@ -17,7 +17,7 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        
+        //asdasd
     }
 
     @Override
