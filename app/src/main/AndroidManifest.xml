@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".function.register.RegisterActivity" />
         <activity android:name=".function.forget_password.ForgetPasswordActivity" />
+        <activity android:name=".function.home_be_sending_out.detail.HomeBeSendingOutDetailActivity" />
 
         <service android:name=".service.WebSocketService" />
     </application>
