@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rtv="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,8 +8,232 @@
     tools:ignore="HardcodedText">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/app_status_bar_color"
+        android:gravity="center"
+        android:text="我的"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This is PersonalCenter" />
+        android:background="@color/app_status_bar_color"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_user_header"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="11dp"
+            android:contentDescription="header"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_user_header" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="10dp"
+            android:text="Passerby"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/shape_personal_center_bg1"
+        android:elevation="3dp"
+        android:orientation="vertical">
+
+        <com.ruffian.library.RTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="15dp"
+            android:paddingBottom="15dp"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
+            android:text="全部订单"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            rtv:icon_direction="left"
+            rtv:icon_height="17dp"
+            rtv:icon_src_normal="@drawable/ic_all_order"
+            rtv:icon_width="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/layer_list_top_line1"
+            android:orientation="horizontal"
+            android:paddingBottom="17dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="15dp">
+
+            <com.ruffian.library.RTextView
+                android:id="@+id/tv_pending_distribution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:text="待配送"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                rtv:icon_direction="top"
+                rtv:icon_height="22dp"
+                rtv:icon_src_normal="@drawable/ic_personal_center_dps"
+                rtv:icon_width="22dp" />
+
+            <com.ruffian.library.RTextView
+                android:id="@+id/tv_completed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:gravity="center_horizontal"
+                android:text="已完成"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                rtv:icon_direction="top"
+                rtv:icon_height="22dp"
+                rtv:icon_src_normal="@drawable/ic_personal_center_ywc"
+                rtv:icon_width="22dp" />
+
+            <com.ruffian.library.RTextView
+                android:id="@+id/tv_be_replaced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:text="被退换"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                rtv:icon_direction="top"
+                rtv:icon_height="22dp"
+                rtv:icon_src_normal="@drawable/ic_personal_center_thh"
+                rtv:icon_width="22dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/layer_list_bottom_line1"
+        android:paddingBottom="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="金额管理"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="13dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_arrow_right1" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_personal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/layer_list_bottom_line1"
+        android:paddingBottom="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="个人信息"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="13dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_arrow_right1" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/layer_list_bottom_line1"
+        android:paddingBottom="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="账号管理"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="13dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_arrow_right1" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="接单设置"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="13dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_arrow_right1" />
+    </FrameLayout>
+
 
 </LinearLayout>
