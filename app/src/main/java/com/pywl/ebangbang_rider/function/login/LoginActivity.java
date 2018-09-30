@@ -40,8 +40,15 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        for (String aPermissionArray : RxPermissionsUtils.permissionArray) {
+            boolean isRegister = RxPermissionsUtils.checkPermissions(LoginActivity.this, aPermissionArray);
+            if (!isRegister) {
+                registerPermission();
+                break;
+            }
+        }
 
-        registerPermission();
+
     }
 
     /**
@@ -55,12 +62,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        for (String aPermissionArray : RxPermissionsUtils.permissionArray) {
-                            boolean isRegister = RxPermissionsUtils.checkPermissions(LoginActivity.this, aPermissionArray);
-                            if (!isRegister) {
-                                RxPermissionsUtils.registerPermissions(LoginActivity.this);
-                            }
-                        }
+                        RxPermissionsUtils.registerPermissions(LoginActivity.this);
                     }
                 }).show();
     }

@@ -1,15 +1,19 @@
 package com.pywl.ebangbang_rider.function.home_be_sending_out.detail;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -26,6 +30,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Harry on 2018/9/29.
@@ -33,6 +42,34 @@ import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
  */
 public class HomeBeSendingOutDetailActivity extends BaseActivity {
 
+    @BindView(R.id.ll_back)
+    LinearLayout llBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.iv_food_image)
+    ImageView ivFoodImage;
+    @BindView(R.id.tv_food_name)
+    TextView tvFoodName;
+    @BindView(R.id.tv_food_money)
+    TextView tvFoodMoney;
+    @BindView(R.id.tv_food_count)
+    TextView tvFoodCount;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
+    @BindView(R.id.tv_remark)
+    TextView tvRemark;
+    @BindView(R.id.tv_name_and_phone)
+    TextView tvNameAndPhone;
+    @BindView(R.id.tv_receive_address)
+    TextView tvReceiveAddress;
+    @BindView(R.id.iv_call_phone)
+    ImageView ivCallPhone;
     private MapView mapView;
     private AMapLocationClient mLocationClient;
     private LocationSource.OnLocationChangedListener mLocationChangedListener;
@@ -48,6 +85,8 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        ButterKnife.bind(this);
+        tvTitle.setText("派送详情");
         alertGPSWarning();
         initArrowView();
         initMap();
@@ -67,7 +106,7 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent();
-                            intent.setAction(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             startActivity(intent);
                             dialog.dismiss();
                         }
@@ -83,6 +122,7 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
 
     /**
      * 判断GPS是否开启，GPS或者AGPS开启一个就认为是开启的
+     *
      * @param context context
      * @return true 表示开启
      */
@@ -179,6 +219,34 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
         mLocationClient.setLocationOption(mLocationOption);
         // 启动高德地图定位
         mLocationClient.startLocation();
+    }
+
+    @OnClick({R.id.ll_back, R.id.iv_call_phone})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.iv_call_phone:
+                if (!RxPermissionsUtils.checkPermissions(this, Manifest.permission.CALL_PHONE)) {
+                    ToastUtils.showShort("拨打电话权限被拒绝, 无法使用该功能");
+                    return;
+                } else {
+                    callPhone("123456");
+                }
+                break;
+        }
+    }
+
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     * @param phoneNum 电话号码
+     */
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
     }
 
     private class MyLocationSource implements LocationSource {
