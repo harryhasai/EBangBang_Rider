@@ -22,10 +22,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseActivity
 
     private EBangBangRiderApplication application;
     private AlertDialog dialog;
+    protected Bundle savedInstanceState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.savedInstanceState = savedInstanceState;
 
         setContentView(setupView());
         application = (EBangBangRiderApplication) getApplication();

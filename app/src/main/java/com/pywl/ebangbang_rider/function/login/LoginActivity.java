@@ -1,16 +1,21 @@
 package com.pywl.ebangbang_rider.function.login;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import com.pywl.ebangbang_rider.R;
+import com.pywl.ebangbang_rider.app_final.ConstantFinal;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.forget_password.ForgetPasswordActivity;
 import com.pywl.ebangbang_rider.function.main.MainActivity;
 import com.pywl.ebangbang_rider.function.register.RegisterActivity;
+import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
+import com.pywl.ebangbang_rider.utils.SPUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +41,28 @@ public class LoginActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
 
+        registerPermission();
+    }
+
+    /**
+     * 提示用户注册app相关的权限
+     */
+    private void registerPermission() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("系统需要注册相关用户权限来提高您的用户体验")
+                .setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        for (String aPermissionArray : RxPermissionsUtils.permissionArray) {
+                            boolean isRegister = RxPermissionsUtils.checkPermissions(LoginActivity.this, aPermissionArray);
+                            if (!isRegister) {
+                                RxPermissionsUtils.registerPermissions(LoginActivity.this);
+                            }
+                        }
+                    }
+                }).show();
     }
 
     @Override

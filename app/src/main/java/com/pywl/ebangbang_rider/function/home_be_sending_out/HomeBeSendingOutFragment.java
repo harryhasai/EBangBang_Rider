@@ -1,5 +1,6 @@
 package com.pywl.ebangbang_rider.function.home_be_sending_out;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,9 @@ import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.home_be_sending_out.detail.HomeBeSendingOutDetailActivity;
+import com.pywl.ebangbang_rider.function.login.LoginActivity;
 import com.pywl.ebangbang_rider.network.entity.CommonItem;
+import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Harry on 2018/9/27.
@@ -79,6 +83,12 @@ public class HomeBeSendingOutFragment extends BaseFragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.iv_to_detail:
+                        for (String aPermissionArray : RxPermissionsUtils.permissionArray) {
+                            boolean isRegister = RxPermissionsUtils.checkPermissions(HomeBeSendingOutFragment.this, aPermissionArray);
+                            if (!isRegister) {
+                                RxPermissionsUtils.registerPermissions(HomeBeSendingOutFragment.this);
+                            }
+                        }
                         startActivity(new Intent(mActivity, HomeBeSendingOutDetailActivity.class));
                         break;
                 }

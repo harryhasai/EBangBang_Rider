@@ -6,4 +6,5 @@ package com.pywl.ebangbang_rider.app_final;
  */
 public class ConstantFinal {
 
+    public static final String IS_FIRST_OPEN_APP = "IS_FIRST_OPEN_APP";
 }
