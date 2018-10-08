@@ -54,6 +54,9 @@
         <activity android:name=".function.register.RegisterActivity" />
         <activity android:name=".function.forget_password.ForgetPasswordActivity" />
         <activity android:name=".function.home_be_sending_out.detail.HomeBeSendingOutDetailActivity" />
+        <activity android:name=".function.message.MessageActivity" />
+        <activity android:name=".function.data_setting.DataSettingActivity" />
+        <activity android:name=".function.personal_information.PersonalInformationActivity" />
 
         <service android:name=".service.WebSocketService" />
     </application>

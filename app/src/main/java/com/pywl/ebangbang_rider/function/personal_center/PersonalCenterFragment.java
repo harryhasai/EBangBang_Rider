@@ -16,6 +16,8 @@ import com.luck.picture.lib.tools.PictureFileUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+import com.pywl.ebangbang_rider.function.data_setting.DataSettingActivity;
+import com.pywl.ebangbang_rider.function.personal_information.PersonalInformationActivity;
 import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 import com.ruffian.library.RTextView;
 
@@ -89,7 +91,9 @@ public class PersonalCenterFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.iv_user_header, R.id.tv_pending_distribution, R.id.tv_completed, R.id.tv_be_replaced, R.id.fl_money, R.id.fl_personal, R.id.fl_account, R.id.fl_setting})
+    @OnClick({R.id.iv_user_header, R.id.tv_pending_distribution,
+            R.id.tv_completed, R.id.tv_be_replaced, R.id.fl_money, R.id.fl_personal,
+            R.id.fl_account, R.id.fl_setting, R.id.fl_data_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_user_header:   //头像
@@ -104,10 +108,14 @@ public class PersonalCenterFragment extends BaseFragment {
             case R.id.fl_money:     //金额管理
                 break;
             case R.id.fl_personal:      //个人信息
+                startActivity(new Intent(mActivity, PersonalInformationActivity.class));
                 break;
             case R.id.fl_account:       //账号管理
                 break;
             case R.id.fl_setting:       //接单设置
+                break;
+            case R.id.fl_data_setting:   //资料设置:
+                startActivity(new Intent(mActivity, DataSettingActivity.class));
                 break;
         }
     }

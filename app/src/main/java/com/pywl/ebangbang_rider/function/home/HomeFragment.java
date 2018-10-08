@@ -1,5 +1,6 @@
 package com.pywl.ebangbang_rider.function.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,7 @@ import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.home_be_sending_out.HomeBeSendingOutFragment;
 import com.pywl.ebangbang_rider.function.home_new_task.HomeNewTaskFragment;
 import com.pywl.ebangbang_rider.function.home_waiting_for_goods.HomeWaitingForGoodsFragment;
+import com.pywl.ebangbang_rider.function.message.MessageActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +97,8 @@ public class HomeFragment extends BaseFragment {
     @OnClick({R.id.ll_Message})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_Message:
+            case R.id.ll_Message:   //消息
+                startActivity(new Intent(mActivity, MessageActivity.class));
                 break;
         }
     }
