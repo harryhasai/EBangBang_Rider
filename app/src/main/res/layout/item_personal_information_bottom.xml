@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:background="@drawable/shape_personal_center_bg"
+    android:layout_marginBottom="6dp"
+    android:elevation="3dp"
+    tools:ignore="HardcodedText">
+
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="header"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_user_header1" />
+
+    <LinearLayout
+        android:id="@+id/ll_star_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_header"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@id/iv_header"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:contentDescription="star"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:contentDescription="star"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:contentDescription="star"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:contentDescription="star"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:contentDescription="star"
+            android:src="@drawable/ic_star" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_star_container"
+        android:layout_alignStart="@id/ll_star_container"
+        android:layout_marginBottom="9dp"
+        android:text="Passerby"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/ll_star_container"
+        android:layout_below="@id/ll_star_container"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="15dp"
+        android:text="要做一个具有良好专业技术水平又有高尚职业道德的优秀员工."
+        android:textColor="#4d4d4d"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/ll_star_container"
+        android:layout_below="@id/tv_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="50dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_food" />
+
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_food" />
+
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_food" />
+
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="image"
+            android:src="@drawable/ic_food" />
+
+    </LinearLayout>
+
+</RelativeLayout>
