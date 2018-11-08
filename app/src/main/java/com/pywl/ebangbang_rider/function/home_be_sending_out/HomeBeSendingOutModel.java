@@ -1,9 +1,8 @@
-package com.pywl.ebangbang_rider.function.home_waiting_for_goods;
+package com.pywl.ebangbang_rider.function.home_be_sending_out;
 
 import com.pywl.ebangbang_rider.app_final.URLFinal;
 import com.pywl.ebangbang_rider.app_final.UserInfo;
 import com.pywl.ebangbang_rider.base.model.BaseModel;
-import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 import com.pywl.ebangbang_rider.network.service.HomeWaitingForGoodsService;
 import com.pywl.ebangbang_rider.utils.RetrofitHelper;
@@ -20,11 +19,11 @@ import retrofit2.Retrofit;
 /**
  * Created by Harry on 2018/11/8.
  */
-public class HomeWaitingForGoodsModel extends BaseModel {
+public class HomeBeSendingOutModel extends BaseModel {
 
     private final HomeWaitingForGoodsService service;
 
-    public HomeWaitingForGoodsModel() {
+    public HomeBeSendingOutModel() {
         Retrofit retrofit = RetrofitHelper.getInstance().getRetrofit();
         service = retrofit.create(HomeWaitingForGoodsService.class);
     }
@@ -33,20 +32,9 @@ public class HomeWaitingForGoodsModel extends BaseModel {
         Map<String, String> params = new HashMap<>();
 
         params.put("rideId", SPUtils.getString(UserInfo.RIDE_ID.name(), ""));
-        params.put("orderFormStatus", "3");//骑手正在前往商家
+        params.put("orderFormStatus", "4");//骑手配送中
 
         service.getDataList(URLFinal.GET_WAITING_FOR_GOODS, params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-
-    public void arrival(String orderID, Observer<CommonEntity> observer) {
-        Map<String, String> params = new HashMap<>();
-
-        params.put("orderFormId", orderID);
-
-        service.arrival(URLFinal.ARRIVAL, params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

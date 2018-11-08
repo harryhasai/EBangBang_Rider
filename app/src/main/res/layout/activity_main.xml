@@ -11,6 +11,11 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/eee"/>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
@@ -19,6 +24,7 @@
         app:itemIconTint="@color/select_bottom_navigation_icon"
         app:itemTextColor="@color/select_bottom_navigation_icon"
         app:itemBackground="@null"
+        android:elevation="3dp"
         app:menu="@menu/bottom_navigation" />
 
 </LinearLayout>

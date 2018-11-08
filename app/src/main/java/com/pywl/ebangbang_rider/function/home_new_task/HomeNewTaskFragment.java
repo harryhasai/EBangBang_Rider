@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
-import com.pywl.ebangbang_rider.network.entity.CommonItem;
+import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +69,9 @@ public class HomeNewTaskFragment extends BaseFragment {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        List<CommonItem> data = new ArrayList<>();
+        List<CommonEntity> data = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            data.add(new CommonItem());
+            data.add(new CommonEntity());
         }
         HomeNewTaskAdapter adapter = new HomeNewTaskAdapter(R.layout.item_home_new_task, data, mActivity);
         recyclerView.setAdapter(adapter);

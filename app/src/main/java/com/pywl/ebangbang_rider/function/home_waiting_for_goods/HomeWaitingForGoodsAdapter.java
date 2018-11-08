@@ -7,14 +7,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ConvertUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.app_final.UserInfo;
-import com.pywl.ebangbang_rider.network.entity.CommonItem;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
-import com.pywl.ebangbang_rider.utils.DateFormatUtils;
 import com.pywl.ebangbang_rider.utils.SPUtils;
 import com.squareup.picasso.Picasso;
 
@@ -76,7 +73,9 @@ public class HomeWaitingForGoodsAdapter extends BaseQuickAdapter<HomeWaitingForG
                 .setText(R.id.tv_money, "¥" + item.DispatchingMoney)
                 .setText(R.id.tv_remark, item.remark)
                 .setText(R.id.tv_name_and_phone, item.addresseeName + " " + item.addresseePhone)
-                .setText(R.id.tv_receive_address, "地址: " + item.addresseeSite);
+                .setText(R.id.tv_receive_address, "地址: " + item.addresseeSite)
+                .addOnClickListener(R.id.btn_arrival)
+                .addOnClickListener(R.id.btn_call_phone);
 
     }
 }

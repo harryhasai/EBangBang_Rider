@@ -1,6 +1,7 @@
 package com.pywl.ebangbang_rider.network.service;
 
 
+import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 
 import java.util.Map;
@@ -19,4 +20,8 @@ public interface HomeWaitingForGoodsService {
     @FormUrlEncoded
     @POST
     Observable<HomeWaitingForGoodsEntity> getDataList(@Url String url, @FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST
+    Observable<CommonEntity> arrival(@Url String url, @FieldMap Map<String, String> params);
 }

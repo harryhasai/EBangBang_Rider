@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
-import com.pywl.ebangbang_rider.network.entity.CommonItem;
+import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +72,9 @@ public class MessageActivity extends BaseActivity {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<CommonItem> data = new ArrayList<>();
+        List<CommonEntity> data = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            data.add(new CommonItem());
+            data.add(new CommonEntity());
         }
         MessageAdapter adapter = new MessageAdapter(R.layout.item_message, data);
         recyclerView.setAdapter(adapter);

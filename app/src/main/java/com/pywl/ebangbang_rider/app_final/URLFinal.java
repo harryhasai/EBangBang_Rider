@@ -15,4 +15,8 @@ public class URLFinal {
      * 正在派送中的数据信息
      */
     public static final String GET_WAITING_FOR_GOODS = "modeleRider/personal/riderOrderForm";
+    /**
+     * 抵达商家 取货确认按钮
+     */
+    public static final String ARRIVAL = "modeleRider/personal/rideAffirmClaimGoods";
 }

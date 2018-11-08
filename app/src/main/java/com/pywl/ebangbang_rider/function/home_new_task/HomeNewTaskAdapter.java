@@ -11,24 +11,24 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.pywl.ebangbang_rider.R;
-import com.pywl.ebangbang_rider.network.entity.CommonItem;
+import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 
 import java.util.List;
 
 /**
  * Created by Harry on 2018/9/27.
  */
-public class HomeNewTaskAdapter extends BaseQuickAdapter<CommonItem, BaseViewHolder> {
+public class HomeNewTaskAdapter extends BaseQuickAdapter<CommonEntity, BaseViewHolder> {
 
     private Activity mActivity;
 
-    public HomeNewTaskAdapter(int layoutResId, @Nullable List<CommonItem> data, Activity activity) {
+    public HomeNewTaskAdapter(int layoutResId, @Nullable List<CommonEntity> data, Activity activity) {
         super(layoutResId, data);
         this.mActivity = activity;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CommonItem item) {
+    protected void convert(BaseViewHolder helper, CommonEntity item) {
         final ImageView ivArrow = helper.getView(R.id.iv_arrow);
         final LinearLayout llMore = helper.getView(R.id.ll_more);
         ivArrow.setOnClickListener(new View.OnClickListener() {

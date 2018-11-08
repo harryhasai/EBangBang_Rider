@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="34dp"
-            android:background="?attr/selectableItemBackground">
+            android:background="?attr/selectableItemBackground"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="18dp"
@@ -50,10 +51,10 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/white"
-        android:elevation="3dp"/>
+        android:elevation="3dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

@@ -9,11 +9,12 @@ import android.view.View;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.pywl.ebangbang_rider.R;
+import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.home_be_sending_out.detail.HomeBeSendingOutDetailActivity;
-import com.pywl.ebangbang_rider.network.entity.CommonItem;
-import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
+import com.pywl.ebangbang_rider.network.entity.CommonEntity;
+import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +27,16 @@ import butterknife.Unbinder;
  * Created by Harry on 2018/9/27.
  * 首页 - 正在派送中
  */
-public class HomeBeSendingOutFragment extends BaseFragment {
+public class HomeBeSendingOutFragment extends BaseFragment<HomeBeSendingOutPresenter> {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+
+    private List<HomeWaitingForGoodsEntity.DataBean> mList;
+    private HomeBeSendingOutAdapter adapter;
 
     @Override
     protected int setupView() {
@@ -43,18 +47,24 @@ public class HomeBeSendingOutFragment extends BaseFragment {
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
 
+        mList = new ArrayList<>();
+
         initSwipeRefreshLayout();
         initRecyclerView();
+
+        mPresenter.getDataList();
     }
 
     @Override
     protected ArrayList<Object> cancelNetWork() {
-        return null;
+        ArrayList<Object> tags = new ArrayList<>();
+        tags.add(DisposableFinal.HOME_BE_SENDING_OUT_GET_DATA_LIST);
+        return tags;
     }
 
     @Override
-    protected BasePresenter bindPresenter() {
-        return null;
+    protected HomeBeSendingOutPresenter bindPresenter() {
+        return new HomeBeSendingOutPresenter();
     }
 
     private void initSwipeRefreshLayout() {
@@ -65,19 +75,14 @@ public class HomeBeSendingOutFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ToastUtils.showShort("下拉刷新");
-                swipeRefreshLayout.setRefreshing(false);
+                mPresenter.getDataList();
             }
         });
     }
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        List<CommonItem> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            data.add(new CommonItem());
-        }
-        HomeBeSendingOutAdapter adapter = new HomeBeSendingOutAdapter(R.layout.item_home_be_sending_out, data);
+        adapter = new HomeBeSendingOutAdapter(R.layout.item_home_be_sending_out, mList, mActivity);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -85,11 +90,26 @@ public class HomeBeSendingOutFragment extends BaseFragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.iv_to_detail:
-                        startActivity(new Intent(mActivity, HomeBeSendingOutDetailActivity.class));
+                        Intent intent = new Intent(mActivity, HomeBeSendingOutDetailActivity.class);
+                        intent.putExtra("data", mList.get(position));
+                        startActivity(intent);
                         break;
                 }
             }
         });
+    }
+
+    public void setRefreshing(boolean refreshing) {
+        swipeRefreshLayout.setRefreshing(refreshing);
+    }
+
+    /**
+     * @param data 从网络获取到的数据
+     */
+    public void getDataList(List<HomeWaitingForGoodsEntity.DataBean> data) {
+        mList.clear();
+        mList.addAll(data);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

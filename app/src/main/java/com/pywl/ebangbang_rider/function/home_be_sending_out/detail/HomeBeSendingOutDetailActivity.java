@@ -28,11 +28,16 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
+import com.pywl.ebangbang_rider.app_final.UserInfo;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.home_be_sending_out.HomeBeSendingOutFragment;
+import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
+import com.pywl.ebangbang_rider.utils.SPUtils;
+import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -53,14 +58,8 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
     TextView tvName;
     @BindView(R.id.tv_address)
     TextView tvAddress;
-    @BindView(R.id.iv_food_image)
-    ImageView ivFoodImage;
-    @BindView(R.id.tv_food_name)
-    TextView tvFoodName;
-    @BindView(R.id.tv_food_money)
-    TextView tvFoodMoney;
-    @BindView(R.id.tv_food_count)
-    TextView tvFoodCount;
+    @BindView(R.id.tv_waiting_time)
+    TextView tvWaitingTime;
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
     @BindView(R.id.tv_money)
@@ -79,6 +78,8 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
     private AMap aMap;
     // 标识首次定位
     private boolean isFirstLocation = true;
+    private double addresseeLatitude;
+    private double addresseeLongitude;
 
 
     @Override
@@ -95,15 +96,15 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
             boolean isRegister = RxPermissionsUtils.checkPermissions(this, aPermissionArray);
             if (!isRegister) {
                 RxPermissionsUtils.registerPermissions(this);
-            } else {
-                ToastUtils.showShort("地图和拨打电话功能无法正常使用");
             }
         }
 
         tvTitle.setText("派送详情");
+        setupData();
         alertGPSWarning();
         initArrowView();
         initMap();
+
     }
 
     @Override
@@ -169,6 +170,44 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    /**
+     * 设置数据给控件
+     */
+    private void setupData() {
+        HomeWaitingForGoodsEntity.DataBean bean = (HomeWaitingForGoodsEntity.DataBean) getIntent().getSerializableExtra("data");
+        for (HomeWaitingForGoodsEntity.DataBean.GoodsBean childBean : bean.goods) {
+            View view = View.inflate(this, R.layout.item_food_detail, null);
+            ImageView ivFoodImage = view.findViewById(R.id.iv_food_image);
+            TextView tvFoodName = view.findViewById(R.id.tv_food_name);
+            TextView tvFoodMoney = view.findViewById(R.id.tv_food_money);
+            TextView tvFoodCount = view.findViewById(R.id.tv_food_count);
+            Picasso.with(this)
+                    .load(SPUtils.getString(UserInfo.BASE_HEADER.name(), "") + childBean.imgLink)
+                    .error(R.drawable.ic_food)
+                    //.transform(new PicassoCircleTransform())
+                    //.resize(ConvertUtils.dp2px(65), ConvertUtils.dp2px(65))
+                    //.centerCrop()
+                    .into(ivFoodImage);
+            tvFoodName.setText(childBean.goodsName);
+            tvFoodMoney.setText("¥" + childBean.goodsPrice);
+            tvFoodCount.setText("x " + childBean.num);
+            llContainer.addView(view);
+        }
+
+        long waitingTime = System.currentTimeMillis() - bean.getCreateTime;
+        tvWaitingTime.setText("顾客已等" + waitingTime / 1000 / 60 + "分钟");
+        tvName.setText(bean.shopName);
+        tvAddress.setText("地址: " + bean.shopSitedDetail);
+        tvMoney.setText("¥" + bean.DispatchingMoney);
+        tvRemark.setText(bean.remark);
+        tvNameAndPhone.setText(bean.addresseeName + " " + bean.addresseePhone);
+        tvReceiveAddress.setText("地址: " + bean.addresseeSite);
+
+        addresseeLatitude = Double.parseDouble(bean.addresseeLatitude);
+        addresseeLongitude = Double.parseDouble(bean.addresseeLongitude);
+
     }
 
     private void initMap() {
@@ -315,7 +354,7 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
                         // 设置缩放级别
                         aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                         // 将地图移动到定位点
-                        aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
+//                        aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
                         // 点击定位按钮 能够将地图的中心移动到定位点
                         mLocationChangedListener.onLocationChanged(aMapLocation);
                         isFirstLocation = false;

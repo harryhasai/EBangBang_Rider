@@ -1,11 +1,12 @@
 package com.pywl.ebangbang_rider.network.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Harry on 2018/11/8.
  */
-public class HomeWaitingForGoodsEntity {
+public class HomeWaitingForGoodsEntity implements Serializable {
 
     /**
      * msg : 查询成功
@@ -19,7 +20,7 @@ public class HomeWaitingForGoodsEntity {
     public int code;
     public List<DataBean> data;
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * shioLatitude : 34.667874
          * orderFormStatus : 3
@@ -54,12 +55,13 @@ public class HomeWaitingForGoodsEntity {
         public String addresseeSite;
         public String shopLongitude;
         public String shopSitedDetail;
+        public String shopContactsPhone;
         public double ActualMoney;
         public int id;
         public int shopId;
         public List<GoodsBean> goods;
 
-        public static class GoodsBean {
+        public static class GoodsBean implements Serializable {
             /**
              * imgLink : 20181108095947758_327.jpg
              * goodsId : 3

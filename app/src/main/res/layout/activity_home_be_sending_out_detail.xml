@@ -37,6 +37,7 @@
                 android:src="@drawable/ic_clock" />
 
             <TextView
+                android:id="@+id/tv_waiting_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -47,6 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_marginStart="10dp"
                 android:text="(19:16前送达)"
                 android:textColor="@color/app_status_bar_color"
@@ -129,9 +131,9 @@
                         android:background="@drawable/layer_list_bottom_line1"
                         android:orientation="vertical">
 
-                        <include layout="@layout/item_food_detail" />
+                        <!--<include layout="@layout/item_food_detail" />-->
 
-                        <include layout="@layout/item_food_detail" />
+                        <!--<include layout="@layout/item_food_detail" />-->
                     </LinearLayout>
 
                     <FrameLayout

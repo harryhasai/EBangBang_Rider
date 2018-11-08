@@ -1,17 +1,18 @@
 package com.pywl.ebangbang_rider.function.home_waiting_for_goods;
 
+import android.Manifest;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.BaseFragment;
-import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
-import com.pywl.ebangbang_rider.network.entity.CommonItem;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
+import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGood
     protected ArrayList<Object> cancelNetWork() {
         ArrayList<Object> tags = new ArrayList<>();
         tags.add(DisposableFinal.HOME_WAITING_FOR_GOODS_FRAGMENT_GET_DATA_LIST);
+        tags.add(DisposableFinal.HOME_WAITING_FOR_GOODS_FRAGMENT_ARRIVAL);
         return tags;
     }
 
@@ -81,10 +83,32 @@ public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGood
         adapter = new HomeWaitingForGoodsAdapter(R.layout.item_home_waiting_for_goods, mList, mActivity);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.btn_call_phone:  //联系
+                        if (!RxPermissionsUtils.checkPermissions(HomeWaitingForGoodsFragment.this, Manifest.permission.CALL_PHONE)) {
+                            ToastUtils.showShort("拨打电话权限被拒绝, 无法使用该功能");
+                            return;
+                        } else {
+                            if (mList.size() != 0) {
+                                mPresenter.callPhone(mList.get(position).shopContactsPhone);
+                            }
+                        }
+                        break;
+                    case R.id.btn_arrival:  //上报到店
+                        if (mList.size() != 0) {
+                            mPresenter.arrival(String.valueOf(mList.get(position).id));
+                        }
+                        break;
+                }
+            }
+        });
     }
 
-    public void stopRefresh() {
-        swipeRefreshLayout.setRefreshing(false);
+    public void setRefreshing(boolean refreshing) {
+        swipeRefreshLayout.setRefreshing(refreshing);
     }
 
     @Override
@@ -101,4 +125,5 @@ public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGood
         mList.addAll(data);
         adapter.notifyDataSetChanged();
     }
+
 }
