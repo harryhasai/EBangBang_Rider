@@ -44,6 +44,11 @@ public class HomeNewTaskFragment extends BaseFragment {
     }
 
     @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
+    }
+
+    @Override
     protected BasePresenter bindPresenter() {
         return null;
     }

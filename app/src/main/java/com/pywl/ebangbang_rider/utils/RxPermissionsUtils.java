@@ -1,6 +1,7 @@
 package com.pywl.ebangbang_rider.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class RxPermissionsUtils {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
+    @SuppressLint("CheckResult")
     public static void registerPermissions(AppCompatActivity activity) {
         RxPermissions rxPermissions = new RxPermissions(activity);
         rxPermissions.requestEach(Manifest.permission.CAMERA,
@@ -56,6 +58,7 @@ public class RxPermissionsUtils {
                 });
     }
 
+    @SuppressLint("CheckResult")
     public static void registerPermissions(Fragment fragment) {
         RxPermissions rxPermissions = new RxPermissions(fragment);
         rxPermissions.requestEach(Manifest.permission.CAMERA,

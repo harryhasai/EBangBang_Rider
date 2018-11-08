@@ -1,17 +1,17 @@
 package com.pywl.ebangbang_rider.function.register;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.login.LoginActivity;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +45,11 @@ public class RegisterActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
 
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override

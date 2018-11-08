@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.base.view.BaseFragmentImpl;
+import com.pywl.ebangbang_rider.rx.DisposableManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by Harry on 2018/8/13.
@@ -61,6 +64,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseFragment
     }
 
     /**
+     * @return RxJava中的Disposable方法
+     */
+    protected abstract ArrayList<Object> cancelNetWork();
+
+    /**
      * 显示LoadingDialog
      */
     public void showDialog() {
@@ -74,6 +82,18 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseFragment
     public void dismissDialog() {
         if (dialog != null) {
             dialog.cancel();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        ArrayList<Object> tags = cancelNetWork();
+        if (tags != null && tags.size() != 0) {
+            for (Object tag : tags) {
+                DisposableManager.get().cancel(tag);
+            }
         }
     }
 }

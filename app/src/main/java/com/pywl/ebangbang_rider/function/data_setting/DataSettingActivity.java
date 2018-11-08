@@ -1,12 +1,13 @@
 package com.pywl.ebangbang_rider.function.data_setting;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +31,11 @@ public class DataSettingActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         tvTitle.setText("设置");
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override

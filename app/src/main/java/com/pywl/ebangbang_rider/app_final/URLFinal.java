@@ -8,7 +8,7 @@ public class URLFinal {
     /**
      * BaseUrl
      */
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "http://116.62.218.136:9055/guozongApp/";
 
-
+    public static final String LOGIN = "modeleRider/personal/RideLogin";
 }

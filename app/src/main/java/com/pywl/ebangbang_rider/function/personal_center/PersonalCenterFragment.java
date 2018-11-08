@@ -21,6 +21,7 @@ import com.pywl.ebangbang_rider.function.personal_information.PersonalInformatio
 import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 import com.ruffian.library.RTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,6 +65,11 @@ public class PersonalCenterFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
 
         checkPermissions();
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override

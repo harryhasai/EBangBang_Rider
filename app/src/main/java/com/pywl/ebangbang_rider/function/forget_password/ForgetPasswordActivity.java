@@ -1,6 +1,5 @@
 package com.pywl.ebangbang_rider.function.forget_password;
 
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +8,8 @@ import android.widget.TextView;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +45,11 @@ public class ForgetPasswordActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         tvTitle.setText("找回密码");
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override

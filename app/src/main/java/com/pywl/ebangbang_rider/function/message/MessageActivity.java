@@ -1,6 +1,5 @@
 package com.pywl.ebangbang_rider.function.message;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
-import com.pywl.ebangbang_rider.function.home_be_sending_out.HomeBeSendingOutAdapter;
 import com.pywl.ebangbang_rider.network.entity.CommonItem;
 
 import java.util.ArrayList;
@@ -46,6 +44,11 @@ public class MessageActivity extends BaseActivity {
 
         initSwipeRefreshLayout();
         initRecyclerView();
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override

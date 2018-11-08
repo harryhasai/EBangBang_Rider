@@ -14,6 +14,9 @@ import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.application.EBangBangRiderApplication;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.base.view.BaseActivityImpl;
+import com.pywl.ebangbang_rider.rx.DisposableManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by Harry on 2018/8/13.
@@ -53,6 +56,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseActivity
      */
     protected abstract void initView();
 
+    /**
+     * @return RxJava中的Disposable方法
+     */
+    protected abstract ArrayList<Object> cancelNetWork();
+
     private void initDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.LoadingDialog);
         dialog = builder.create();
@@ -81,6 +89,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseActivity
     protected void onDestroy() {
         super.onDestroy();
         application.finishActivity(this);   //清除栈中的Activity
+
+        ArrayList<Object> tags = cancelNetWork();
+        if (tags != null && tags.size() != 0) {
+            for (Object tag : tags) {
+                DisposableManager.get().cancel(tag);
+            }
+        }
     }
 
 }

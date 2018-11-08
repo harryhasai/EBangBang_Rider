@@ -32,6 +32,8 @@ import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -90,6 +92,11 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
         alertGPSWarning();
         initArrowView();
         initMap();
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override

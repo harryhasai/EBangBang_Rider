@@ -14,6 +14,7 @@ import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.home.HomeFragment;
 import com.pywl.ebangbang_rider.function.personal_center.PersonalCenterFragment;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,6 +40,11 @@ public class MainActivity extends BaseActivity {
         setupBottomNavigationBar();
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override

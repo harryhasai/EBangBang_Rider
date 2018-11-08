@@ -1,6 +1,5 @@
 package com.pywl.ebangbang_rider.function.home_be_sending_out;
 
-import android.Manifest;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,6 @@ import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.home_be_sending_out.detail.HomeBeSendingOutDetailActivity;
-import com.pywl.ebangbang_rider.function.login.LoginActivity;
 import com.pywl.ebangbang_rider.network.entity.CommonItem;
 import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
@@ -23,7 +21,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by Harry on 2018/9/27.
@@ -48,6 +45,11 @@ public class HomeBeSendingOutFragment extends BaseFragment {
 
         initSwipeRefreshLayout();
         initRecyclerView();
+    }
+
+    @Override
+    protected ArrayList<Object> cancelNetWork() {
+        return null;
     }
 
     @Override
