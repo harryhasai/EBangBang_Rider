@@ -62,12 +62,16 @@ public class LoginPresenter extends BasePresenter<LoginActivity> {
      * @param loginEntity 用户数据
      */
     private void cacheUserInfo(LoginEntity loginEntity) {
-        SPUtils.putString(UserInfo.ID.name(), String.valueOf(loginEntity.rideData.id));
+        SPUtils.putString(UserInfo.RIDE_ID.name(), String.valueOf(loginEntity.rideData.id));
+        SPUtils.putString(UserInfo.USER_ID.name(), String.valueOf(loginEntity.userData.id));
         SPUtils.putString(UserInfo.NAME.name(), loginEntity.rideData.name);
-        SPUtils.putString(UserInfo.PHONE.name(), loginEntity.rideData.phone);
+        SPUtils.putString(UserInfo.LOGIN_NAME.name(), loginEntity.userData.loginName);
+        SPUtils.putString(UserInfo.USER_PHONE.name(), loginEntity.userData.phone);
+        SPUtils.putString(UserInfo.RIDE_PHONE.name(), loginEntity.rideData.phone);
         SPUtils.putString(UserInfo.HEAD_PORTRAIT.name(), loginEntity.rideData.headPortrait);
         SPUtils.putString(UserInfo.TOKEN.name(), loginEntity.token);
         SPUtils.putString(UserInfo.LONGITUDE.name(), loginEntity.rideData.longitude);
         SPUtils.putString(UserInfo.LATITUDE.name(), loginEntity.rideData.latitude);
+        SPUtils.putString(UserInfo.BASE_HEADER.name(), loginEntity.headPortraitLink);
     }
 }

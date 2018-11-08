@@ -7,9 +7,11 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
+import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.network.entity.CommonItem;
+import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +24,16 @@ import butterknife.Unbinder;
  * Created by Harry on 2018/9/27.
  * 首页 - 待取货
  */
-public class HomeWaitingForGoodsFragment extends BaseFragment {
+public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGoodsPresenter> {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+
+    private List<HomeWaitingForGoodsEntity.DataBean> mList;
+    private HomeWaitingForGoodsAdapter adapter;
 
     @Override
     protected int setupView() {
@@ -39,18 +44,23 @@ public class HomeWaitingForGoodsFragment extends BaseFragment {
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
 
+        mList = new ArrayList<>();
         initSwipeRefreshLayout();
         initRecyclerView();
+
+        mPresenter.getDataList();
     }
 
     @Override
     protected ArrayList<Object> cancelNetWork() {
-        return null;
+        ArrayList<Object> tags = new ArrayList<>();
+        tags.add(DisposableFinal.HOME_WAITING_FOR_GOODS_FRAGMENT_GET_DATA_LIST);
+        return tags;
     }
 
     @Override
-    protected BasePresenter bindPresenter() {
-        return null;
+    protected HomeWaitingForGoodsPresenter bindPresenter() {
+        return new HomeWaitingForGoodsPresenter();
     }
 
     private void initSwipeRefreshLayout() {
@@ -61,26 +71,34 @@ public class HomeWaitingForGoodsFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ToastUtils.showShort("下拉刷新");
-                swipeRefreshLayout.setRefreshing(false);
+                mPresenter.getDataList();
             }
         });
     }
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        List<CommonItem> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            data.add(new CommonItem());
-        }
-        HomeWaitingForGoodsAdapter adapter = new HomeWaitingForGoodsAdapter(R.layout.item_home_waiting_for_goods, data);
+        adapter = new HomeWaitingForGoodsAdapter(R.layout.item_home_waiting_for_goods, mList, mActivity);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    public void stopRefresh() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    /**
+     * @param data 从网络获取到的数据
+     */
+    public void getDataList(List<HomeWaitingForGoodsEntity.DataBean> data) {
+        mList.clear();
+        mList.addAll(data);
+        adapter.notifyDataSetChanged();
     }
 }

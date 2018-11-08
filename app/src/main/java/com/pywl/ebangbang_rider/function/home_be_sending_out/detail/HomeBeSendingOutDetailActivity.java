@@ -30,6 +30,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+import com.pywl.ebangbang_rider.function.home_be_sending_out.HomeBeSendingOutFragment;
 import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
 import java.util.ArrayList;
@@ -88,6 +89,17 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+
+        //询问用户注册权限
+        for (String aPermissionArray : RxPermissionsUtils.permissionArray) {
+            boolean isRegister = RxPermissionsUtils.checkPermissions(this, aPermissionArray);
+            if (!isRegister) {
+                RxPermissionsUtils.registerPermissions(this);
+            } else {
+                ToastUtils.showShort("地图和拨打电话功能无法正常使用");
+            }
+        }
+
         tvTitle.setText("派送详情");
         alertGPSWarning();
         initArrowView();

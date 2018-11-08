@@ -76,12 +76,12 @@ public class HomeFragment extends BaseFragment {
 
     private void initFragmentList() {
         fragmentList = new ArrayList<>();
-        HomeNewTaskFragment homeNewTaskFragment = new HomeNewTaskFragment();
+//        HomeNewTaskFragment homeNewTaskFragment = new HomeNewTaskFragment();
         HomeBeSendingOutFragment homeBeSendingOutFragment = new HomeBeSendingOutFragment();
         HomeWaitingForGoodsFragment homeWaitingForGoodsFragment = new HomeWaitingForGoodsFragment();
-        fragmentList.add(homeNewTaskFragment);
-        fragmentList.add(homeBeSendingOutFragment);
+//        fragmentList.add(homeNewTaskFragment);
         fragmentList.add(homeWaitingForGoodsFragment);
+        fragmentList.add(homeBeSendingOutFragment);
     }
 
     private void initConfig() {

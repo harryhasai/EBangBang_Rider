@@ -8,4 +8,5 @@ package com.pywl.ebangbang_rider.app_final;
 public enum DisposableFinal {
 
     LOGIN_ACTIVITY_LOGIN,
+    HOME_WAITING_FOR_GOODS_FRAGMENT_GET_DATA_LIST,
 }

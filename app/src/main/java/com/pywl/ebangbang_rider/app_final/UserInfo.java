@@ -7,10 +7,14 @@ public enum UserInfo {
 
     IS_FIRST_LOGIN,
     TOKEN,
-    ID,
+    USER_ID,
+    RIDE_ID,
     NAME,
-    PHONE,
+    LOGIN_NAME,
+    USER_PHONE,
+    RIDE_PHONE,
     HEAD_PORTRAIT,
     LONGITUDE,
     LATITUDE,
+    BASE_HEADER,
 }

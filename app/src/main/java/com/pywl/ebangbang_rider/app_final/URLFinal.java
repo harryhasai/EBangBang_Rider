@@ -11,4 +11,8 @@ public class URLFinal {
     public static final String BASE_URL = "http://116.62.218.136:9055/guozongApp/";
 
     public static final String LOGIN = "modeleRider/personal/RideLogin";
+    /**
+     * 正在派送中的数据信息
+     */
+    public static final String GET_WAITING_FOR_GOODS = "modeleRider/personal/riderOrderForm";
 }

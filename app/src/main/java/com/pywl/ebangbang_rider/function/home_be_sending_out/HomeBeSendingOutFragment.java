@@ -85,12 +85,6 @@ public class HomeBeSendingOutFragment extends BaseFragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.iv_to_detail:
-                        for (String aPermissionArray : RxPermissionsUtils.permissionArray) {
-                            boolean isRegister = RxPermissionsUtils.checkPermissions(HomeBeSendingOutFragment.this, aPermissionArray);
-                            if (!isRegister) {
-                                RxPermissionsUtils.registerPermissions(HomeBeSendingOutFragment.this);
-                            }
-                        }
                         startActivity(new Intent(mActivity, HomeBeSendingOutDetailActivity.class));
                         break;
                 }
