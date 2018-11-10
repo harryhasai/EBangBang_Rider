@@ -46,7 +46,8 @@ public class HomeBeSendingOutAdapter extends BaseQuickAdapter<HomeWaitingForGood
                 }
             }
         });
-        helper.addOnClickListener(R.id.iv_to_detail);
+        helper.addOnClickListener(R.id.iv_to_detail)
+                .addOnClickListener(R.id.btn_complete);
 
         LinearLayout container = helper.getView(R.id.ll_container);
         for (HomeWaitingForGoodsEntity.DataBean.GoodsBean bean : item.goods) {

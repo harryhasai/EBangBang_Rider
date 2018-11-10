@@ -59,6 +59,19 @@ public class RxPermissionsUtils {
     }
 
     @SuppressLint("CheckResult")
+    public static void registerPermissions(AppCompatActivity activity, Consumer<Permission> permissionConsumer) {
+        RxPermissions rxPermissions = new RxPermissions(activity);
+        rxPermissions.requestEach(Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.CALL_PHONE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(permissionConsumer);
+    }
+
+    @SuppressLint("CheckResult")
     public static void registerPermissions(Fragment fragment) {
         RxPermissions rxPermissions = new RxPermissions(fragment);
         rxPermissions.requestEach(Manifest.permission.CAMERA,

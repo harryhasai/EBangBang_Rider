@@ -197,7 +197,7 @@
             android:layout_marginStart="11dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingBottom="19dp">
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/tv_name_and_phone"
@@ -215,6 +215,16 @@
                 android:text="地址: 西工区紫金城A栋1101"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_complete"
+                android:layout_width="135dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/shape_round_rectangle_18dp"
+                android:text="完成订单"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
         </LinearLayout>
 

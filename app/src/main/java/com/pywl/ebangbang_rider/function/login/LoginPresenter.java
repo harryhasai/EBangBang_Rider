@@ -37,6 +37,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> {
                 if (loginEntity.code == 1) {
                     cacheUserInfo(loginEntity);
                     view.startActivity(new Intent(view, MainActivity.class));
+                    SPUtils.putBoolean(UserInfo.IS_LOGIN.name(), true);
                     view.finish();
                 } else {
                     ToastUtils.showShort(loginEntity.msg);

@@ -5,7 +5,7 @@ package com.pywl.ebangbang_rider.app_final;
  */
 public enum UserInfo {
 
-    IS_FIRST_LOGIN,
+    IS_LOGIN,
     TOKEN,
     USER_ID,
     RIDE_ID,

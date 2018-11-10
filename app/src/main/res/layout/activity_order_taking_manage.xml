@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rtv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/white"
+        android:elevation="3dp"
+        android:orientation="vertical"
+        android:paddingTop="33dp"
+        android:paddingBottom="27dp">
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/tv_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawablePadding="15dp"
+            android:text="开工"
+            android:textColor="@color/black1"
+            android:textSize="15sp"
+            rtv:icon_direction="left"
+            rtv:icon_height="16dp"
+            rtv:icon_src_normal="@drawable/ic_radio_unselected"
+            rtv:icon_width="16dp" />
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/tv_pause"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="27dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawablePadding="15dp"
+            android:text="忙碌"
+            android:textColor="@color/black1"
+            android:textSize="15sp"
+            rtv:icon_direction="left"
+            rtv:icon_height="16dp"
+            rtv:icon_src_normal="@drawable/ic_radio_unselected"
+            rtv:icon_width="16dp" />
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/tv_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="27dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawablePadding="15dp"
+            android:text="收工"
+            android:textColor="@color/black1"
+            android:textSize="15sp"
+            rtv:icon_direction="left"
+            rtv:icon_height="16dp"
+            rtv:icon_src_normal="@drawable/ic_radio_unselected"
+            rtv:icon_width="16dp" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="210dp"
+            android:layout_height="39dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/shape_login_button_bg"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

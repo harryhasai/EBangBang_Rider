@@ -19,4 +19,20 @@ public class URLFinal {
      * 抵达商家 取货确认按钮
      */
     public static final String ARRIVAL = "modeleRider/personal/rideAffirmClaimGoods";
+    /**
+     * 抵达客户, 确认完成订单
+     */
+    public static final String COMPLETE = "modeleRider/personal/rideAffirmAccomplish";
+    /**
+     * 修改骑手接单状态
+     */
+    public static final String ORDER_TAKING_MANAGE_SAVE = "modeleRider/personal/updataRideStatus";
+    /**
+     * 获取骑手接单状态
+     */
+    public static final String ORDER_TAKING_MANAGE_GET_STATUS = "modeleRider/personal/selectRideStatus";
+    /**
+     * 意见反馈
+     */
+    public static final String FEEDBACK_COMMIT = "mobile/feedback/insertFeedback";
 }

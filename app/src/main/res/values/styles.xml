@@ -28,4 +28,11 @@
     <style name="home_tabTextSize">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="AppTheme.NoActionBarWithBackGround">
+        <item name="windowActionBar">false</item><!--取消Actionbar-->
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item> <!--设置全屏-->
+        <!--<item name="android:windowBackground">@drawable/ic_splash</item> &lt;!&ndash;设置背景&ndash;&gt;-->
+    </style>
 </resources>

@@ -227,7 +227,7 @@
                     android:layout_width="115dp"
                     android:layout_height="36dp"
                     android:background="@drawable/shape_round_rectangle_18dp"
-                    android:text="联系"
+                    android:text="联系商家"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 

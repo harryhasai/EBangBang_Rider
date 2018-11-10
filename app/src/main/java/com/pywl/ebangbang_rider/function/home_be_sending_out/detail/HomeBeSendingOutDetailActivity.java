@@ -90,7 +90,7 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
 
         tvTitle.setText("派送详情");
         setupData();
-        alertGPSWarning();
+        //alertGPSWarning();
         initArrowView();
         initMap();
     }

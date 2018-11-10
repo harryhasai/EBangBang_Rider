@@ -3,6 +3,7 @@ package com.pywl.ebangbang_rider.function.home_be_sending_out;
 import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 import com.pywl.ebangbang_rider.rx.DisposableManager;
 
@@ -52,6 +53,35 @@ public class HomeBeSendingOutPresenter extends BasePresenter<HomeBeSendingOutFra
             @Override
             public void onComplete() {
                 view.setRefreshing(false);
+            }
+        });
+    }
+
+    public void complete(String orderFormId) {
+        model.complete(orderFormId, new Observer<CommonEntity>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableManager.get().add(DisposableFinal.HOME_BE_SENDING_OUT_COMPLETE, d);
+            }
+
+            @Override
+            public void onNext(CommonEntity commonEntity) {
+                if (commonEntity.code == 1) {
+                    view.setRefreshing(true);
+                    ToastUtils.showShort("提交订单成功");
+                } else {
+                    ToastUtils.showShort(commonEntity.msg);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                ToastUtils.showShort("网络连接错误");
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
     }

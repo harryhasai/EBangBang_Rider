@@ -59,6 +59,7 @@ public class HomeBeSendingOutFragment extends BaseFragment<HomeBeSendingOutPrese
     protected ArrayList<Object> cancelNetWork() {
         ArrayList<Object> tags = new ArrayList<>();
         tags.add(DisposableFinal.HOME_BE_SENDING_OUT_GET_DATA_LIST);
+        tags.add(DisposableFinal.HOME_BE_SENDING_OUT_COMPLETE);
         return tags;
     }
 
@@ -88,11 +89,15 @@ public class HomeBeSendingOutFragment extends BaseFragment<HomeBeSendingOutPrese
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                HomeWaitingForGoodsEntity.DataBean bean = mList.get(position);
                 switch (view.getId()) {
                     case R.id.iv_to_detail:
                         Intent intent = new Intent(mActivity, HomeBeSendingOutDetailActivity.class);
-                        intent.putExtra("data", mList.get(position));
+                        intent.putExtra("data", bean);
                         startActivity(intent);
+                        break;
+                    case R.id.btn_complete:
+                        mPresenter.complete(String.valueOf(bean.id));
                         break;
                 }
             }

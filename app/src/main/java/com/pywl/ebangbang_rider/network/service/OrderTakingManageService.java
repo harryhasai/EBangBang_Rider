@@ -3,6 +3,7 @@ package com.pywl.ebangbang_rider.network.service;
 
 import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
+import com.pywl.ebangbang_rider.network.entity.OrderTakingManageEntity;
 
 import java.util.Map;
 
@@ -15,17 +16,13 @@ import retrofit2.http.Url;
 /**
  * Created by Harry on 2018/8/20.
  */
-public interface HomeWaitingForGoodsService {
+public interface OrderTakingManageService {
 
     @FormUrlEncoded
     @POST
-    Observable<HomeWaitingForGoodsEntity> getDataList(@Url String url, @FieldMap Map<String, String> params);
+    Observable<CommonEntity> save(@Url String url, @FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST
-    Observable<CommonEntity> arrival(@Url String url, @FieldMap Map<String, String> params);
-
-    @FormUrlEncoded
-    @POST
-    Observable<CommonEntity> complete(@Url String url, @FieldMap Map<String, String> params);
+    Observable<OrderTakingManageEntity> getStatus(@Url String url, @FieldMap Map<String, String> params);
 }
