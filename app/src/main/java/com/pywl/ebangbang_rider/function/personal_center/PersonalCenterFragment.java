@@ -14,6 +14,8 @@ import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.app_final.UserInfo;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+import com.pywl.ebangbang_rider.function.about.AboutActivity;
+import com.pywl.ebangbang_rider.function.cancel_order.CancelOrderActivity;
 import com.pywl.ebangbang_rider.function.completed.CompletedActivity;
 import com.pywl.ebangbang_rider.function.feedback.FeedbackActivity;
 import com.pywl.ebangbang_rider.function.login.LoginActivity;
@@ -103,7 +105,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 startActivity(new Intent(mActivity, CompletedActivity.class));
                 break;
             case R.id.tv_be_replaced:       //被退换
-                ToastUtils.showShort("被退换");
+                startActivity(new Intent(mActivity, CancelOrderActivity.class));
                 break;
 //            case R.id.fl_personal:      //个人信息
 //                startActivity(new Intent(mActivity, PersonalInformationActivity.class));
@@ -121,7 +123,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 startActivity(new Intent(mActivity, FeedbackActivity.class));
                 break;
             case R.id.fl_about:       //关于E棒棒
-                ToastUtils.showShort("关于E棒棒");
+                startActivity(new Intent(mActivity, AboutActivity.class));
                 break;
         }
     }

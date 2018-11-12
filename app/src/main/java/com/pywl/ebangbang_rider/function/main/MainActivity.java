@@ -1,18 +1,31 @@
 package com.pywl.ebangbang_rider.function.main;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.LocationManager;
+import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.R;
+import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.BaseActivity;
-import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.function.home.HomeFragment;
 import com.pywl.ebangbang_rider.function.personal_center.PersonalCenterFragment;
+import com.pywl.ebangbang_rider.service.WebSocketService;
+import com.pywl.ebangbang_rider.utils.LocationUtil;
+import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -21,13 +34,17 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainPresenter> {
 
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationView bottomNavigationView;
 
     private HomeFragment homeFragment;
     private PersonalCenterFragment personalCenterFragment;
+    private Intent serviceIntent;
+    private LocationUtil locationUtil;
+    private double longitude;
+    private double latitude;
 
     @Override
     protected int setupView() {
@@ -37,19 +54,114 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+
+        serviceIntent = new Intent(this, WebSocketService.class);
+        startService(serviceIntent);
+
         setupBottomNavigationBar();
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+
+        initGPS();
+
     }
+
+    private void initGPS() {
+        alertGPSWarning();//提示用户开启GPS
+        //注册相关权限
+        RxPermissionsUtils.registerPermissions(this);
+
+        locationUtil = LocationUtil.getInstance();
+        locationUtil.initLocation(getApplicationContext());
+        locationUtil.startLocation(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                if (aMapLocation.getErrorCode() == 0) {
+                    longitude = aMapLocation.getLongitude();
+                    latitude = aMapLocation.getLatitude();
+                    mCountDownTimer.start();
+                } else {
+                    Log.w("MainActivity", "错误码:" + aMapLocation.getErrorCode());
+                    Log.w("MainActivity", "错误信息:" + aMapLocation.getErrorInfo());
+                    Log.w("MainActivity", "错误描述:" + aMapLocation.getLocationDetail());
+                }
+            }
+        });
+    }
+
+    /**
+     * 定时器, 不停的往服务器发送位置信息
+     */
+    CountDownTimer mCountDownTimer = new CountDownTimer(1000 * 60 * 60 * 24 * 10, 1000 * 60) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if (longitude != 0 && latitude != 0) {
+                mPresenter.postAddress(String.valueOf(longitude), String.valueOf(latitude));
+            }
+        }
+
+        @Override
+        public void onFinish() {
+            locationUtil.stopLocation();
+        }
+    };
 
     @Override
     protected ArrayList<Object> cancelNetWork() {
-        return null;
+        ArrayList<Object> tags = new ArrayList<>();
+        tags.add(DisposableFinal.MAIN_ACTIVITY_POST_ADDRESS);
+        return tags;
     }
 
     @Override
-    protected BasePresenter bindPresenter() {
-        return null;
+    protected MainPresenter bindPresenter() {
+        return new MainPresenter();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(serviceIntent);
+        locationUtil.destroyLocation();
+        mCountDownTimer.cancel();
+    }
+
+    private void alertGPSWarning() {
+        if (!isOPen(this)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("检测到您当前未开启GPS, 是否去设置开启?")
+                    .setCancelable(false)
+                    .setPositiveButton("去设置", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent();
+                            intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(intent);
+                            dialog.dismiss();
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ToastUtils.showShort("为了提高您的定位精准度, 建议您开启GPS定位");
+                    dialog.dismiss();
+                }
+            }).show();
+        }
+    }
+
+    /**
+     * 判断GPS是否开启，GPS或者AGPS开启一个就认为是开启的
+     *
+     * @param context context
+     * @return true 表示开启
+     */
+    private boolean isOPen(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        // 通过GPS卫星定位，定位级别可以精确到街（通过24颗卫星定位，在室外和空旷的地方定位准确、速度快）
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        // 通过WLAN或移动网络(3G/2G)确定的位置（也称作AGPS，辅助GPS定位。主要用于在室内或遮盖物（建筑群或茂密的深林等）密集的地方定位）
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        return gps || network;
     }
 
     /**

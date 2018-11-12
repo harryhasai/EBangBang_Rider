@@ -1,7 +1,6 @@
-package com.pywl.ebangbang_rider.function.completed;
+package com.pywl.ebangbang_rider.function.cancel_order;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +22,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Harry on 2018/11/10.
- * 查询已完成的订单
+ * Created by Harry on 2018/11/12.
+ * 被退换
  */
-public class CompletedActivity extends BaseActivity<CompletedPresenter> {
+public class CancelOrderActivity extends BaseActivity<CancelOrderPresenter> {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -36,11 +35,11 @@ public class CompletedActivity extends BaseActivity<CompletedPresenter> {
     TextView tvTitle;
 
     private List<HomeWaitingForGoodsEntity.DataBean> mList;
-    private CompletedAdapter adapter;
+    private CancelOrderAdapter adapter;
 
     @Override
     protected int setupView() {
-        return R.layout.activity_completed;
+        return R.layout.activity_cancel_order;
     }
 
     @Override
@@ -59,13 +58,13 @@ public class CompletedActivity extends BaseActivity<CompletedPresenter> {
     @Override
     protected ArrayList<Object> cancelNetWork() {
         ArrayList<Object> tags = new ArrayList<>();
-        tags.add(DisposableFinal.COMPLETED_ACTIVITY_GET_DATA_LIST);
+        tags.add(DisposableFinal.CANCEL_ORDER_ACTIVITY_GET_DATA_LIST);
         return tags;
     }
 
     @Override
-    protected CompletedPresenter bindPresenter() {
-        return new CompletedPresenter();
+    protected CancelOrderPresenter bindPresenter() {
+        return new CancelOrderPresenter();
     }
 
     private void initSwipeRefreshLayout() {
@@ -83,7 +82,7 @@ public class CompletedActivity extends BaseActivity<CompletedPresenter> {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CompletedAdapter(R.layout.item_completed, mList, this);
+        adapter = new CancelOrderAdapter(R.layout.item_cancel_order, mList, this);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -92,7 +91,7 @@ public class CompletedActivity extends BaseActivity<CompletedPresenter> {
                 HomeWaitingForGoodsEntity.DataBean bean = mList.get(position);
                 switch (view.getId()) {
                     case R.id.iv_to_detail:
-                        Intent intent = new Intent(CompletedActivity.this, HomeBeSendingOutDetailActivity.class);
+                        Intent intent = new Intent(CancelOrderActivity.this, HomeBeSendingOutDetailActivity.class);
                         intent.putExtra("data", bean);
                         startActivity(intent);
                         break;

@@ -1,9 +1,8 @@
-package com.pywl.ebangbang_rider.function.home_be_sending_out;
+package com.pywl.ebangbang_rider.function.completed;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
-import com.pywl.ebangbang_rider.network.entity.CommonEntity;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 import com.pywl.ebangbang_rider.rx.DisposableManager;
 
@@ -13,21 +12,21 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by Harry on 2018/11/8.
+ * Created by Harry on 2018/11/12.
  */
-public class HomeBeSendingOutPresenter extends BasePresenter<HomeBeSendingOutFragment> {
+public class CompletedPresenter extends BasePresenter<CompletedActivity> {
 
-    private final HomeBeSendingOutModel model;
+    private final CompletedModel model;
 
-    public HomeBeSendingOutPresenter() {
-        model = new HomeBeSendingOutModel();
+    public CompletedPresenter() {
+        model = new CompletedModel();
     }
 
     public void getDataList() {
         model.getDataList(new Observer<HomeWaitingForGoodsEntity>() {
             @Override
             public void onSubscribe(Disposable d) {
-                DisposableManager.get().add(DisposableFinal.HOME_BE_SENDING_OUT_GET_DATA_LIST, d);
+                DisposableManager.get().add(DisposableFinal.COMPLETED_ACTIVITY_GET_DATA_LIST, d);
             }
 
             @Override
@@ -37,7 +36,7 @@ public class HomeBeSendingOutPresenter extends BasePresenter<HomeBeSendingOutFra
                     if (data.size() != 0) {
                         view.getDataList(data);
                     } else {
-                        ToastUtils.showShort("暂无配送中数据");
+                        ToastUtils.showShort("暂无已完成数据");
                     }
                 } else {
                     ToastUtils.showShort(homeWaitingForGoodsEntity.msg);
@@ -53,35 +52,6 @@ public class HomeBeSendingOutPresenter extends BasePresenter<HomeBeSendingOutFra
             @Override
             public void onComplete() {
                 view.setRefreshing(false);
-            }
-        });
-    }
-
-    public void complete(String orderFormId) {
-        model.complete(orderFormId, new Observer<CommonEntity>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableManager.get().add(DisposableFinal.HOME_BE_SENDING_OUT_COMPLETE, d);
-            }
-
-            @Override
-            public void onNext(CommonEntity commonEntity) {
-                if (commonEntity.code == 1) {
-                    getDataList();
-                    ToastUtils.showShort("提交订单成功");
-                } else {
-                    ToastUtils.showShort(commonEntity.msg);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                ToastUtils.showShort("网络连接错误");
-            }
-
-            @Override
-            public void onComplete() {
-
             }
         });
     }

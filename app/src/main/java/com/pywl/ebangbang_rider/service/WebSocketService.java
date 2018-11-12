@@ -4,10 +4,20 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
+import com.pywl.ebangbang_rider.app_final.UserInfo;
+import com.pywl.ebangbang_rider.event_bus.ReceiveMessageEvent;
+import com.pywl.ebangbang_rider.utils.NotificationUtil;
+import com.pywl.ebangbang_rider.utils.SPUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -23,6 +33,9 @@ import okio.ByteString;
  */
 public class WebSocketService extends Service {
 
+    //并发送语音播报
+    private TextToSpeech tts;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -33,6 +46,12 @@ public class WebSocketService extends Service {
     public void onCreate() {
         super.onCreate();
         new SocketThread().start();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+//        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;        //该值表示服务在内存资源紧张时被杀死后，在内存资源足够时再恢复
     }
 
     @Override
@@ -59,7 +78,7 @@ public class WebSocketService extends Service {
      * 心跳检测时间
      */
     private static final long HEART_BEAT_RATE = 15 * 1000;//每隔15秒进行一次对长连接的心跳检测
-    private static final String WEB_SOCKET_HOST_AND_PORT = "ws://xxx:9501";//可替换为自己的主机名和端口号
+    private static final String WEB_SOCKET_HOST_AND_PORT = "ws://116.62.218.136:9055/guozongApp/websocket/" + SPUtils.getString(UserInfo.RIDE_ID.name(), "");//可替换为自己的主机名和端口号
     private WebSocket mWebSocket;
 
     private void initSocket() throws UnknownHostException, IOException {
@@ -76,6 +95,20 @@ public class WebSocketService extends Service {
             public void onMessage(WebSocket webSocket, String text) {//接收消息的回调
                 super.onMessage(webSocket, text);
                 //收到服务器端传过来的消息text, 通过EventBus发送不同的消息
+                if (!TextUtils.isEmpty(text)) {
+                    EventBus.getDefault().postSticky(new ReceiveMessageEvent(text));
+                    NotificationUtil.createNotification(WebSocketService.this);
+                    //发送语音播报
+                    tts = new TextToSpeech(WebSocketService.this, new TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int status) {
+                            if (status == TextToSpeech.SUCCESS) {
+                                tts.setLanguage(Locale.CHINESE);
+                                tts.speak("您有新订单, 请注意查收", TextToSpeech.QUEUE_FLUSH, null);
+                            }
+                        }
+                    });
+                }
             }
 
             @Override
@@ -109,7 +142,7 @@ public class WebSocketService extends Service {
         @Override
         public void run() {
             if (System.currentTimeMillis() - sendTime >= HEART_BEAT_RATE) {
-                boolean isSuccess = mWebSocket.send("");//发送一个空消息给服务器，通过发送消息的成功失败来判断长连接的连接状态
+                boolean isSuccess = mWebSocket.send("12");//发送一个空消息给服务器，通过发送消息的成功失败来判断长连接的连接状态
                 if (!isSuccess) {//长连接已断开
                     mHandler.removeCallbacks(heartBeatRunnable);
                     mWebSocket.cancel();//取消掉以前的长连接

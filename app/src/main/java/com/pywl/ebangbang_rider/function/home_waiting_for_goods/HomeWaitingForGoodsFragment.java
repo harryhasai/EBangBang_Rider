@@ -4,6 +4,7 @@ import android.Manifest;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -11,9 +12,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.BaseFragment;
+import com.pywl.ebangbang_rider.event_bus.ReceiveMessageEvent;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
 import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +52,7 @@ public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGood
     @Override
     protected void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
 
         mList = new ArrayList<>();
         initSwipeRefreshLayout();
@@ -111,10 +120,31 @@ public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGood
         swipeRefreshLayout.setRefreshing(refreshing);
     }
 
+    /**
+     * 由于setRefreshing(boolean)方法将mNotify置为false，所以必然不会执行到mListener.onRefresh()方法。
+     * 如果想通过手动设置刷新并且触发事件则需要调用
+     * private void setRefreshing(boolean refreshing, final boolean notify)
+     */
+    public void setRefreshing() {
+        try {
+            Class clazz = swipeRefreshLayout.getClass();
+            Method method = clazz.getDeclaredMethod("setRefreshing", boolean.class, boolean.class);
+            method.setAccessible(true);
+            method.invoke(swipeRefreshLayout, true, true);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -126,4 +156,12 @@ public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGood
         adapter.notifyDataSetChanged();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void receiveMessage(ReceiveMessageEvent event) {
+        if (!TextUtils.isEmpty(event.getMessage())) {
+            //接收到消息 刷新待取货的列表
+//            mPresenter.getDataList();
+            setRefreshing();
+        }
+    }
 }

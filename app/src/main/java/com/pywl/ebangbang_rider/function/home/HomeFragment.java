@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,10 +15,15 @@ import android.widget.TextView;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
+import com.pywl.ebangbang_rider.event_bus.ReceiveMessageEvent;
 import com.pywl.ebangbang_rider.function.home_be_sending_out.HomeBeSendingOutFragment;
 import com.pywl.ebangbang_rider.function.home_new_task.HomeNewTaskFragment;
 import com.pywl.ebangbang_rider.function.home_waiting_for_goods.HomeWaitingForGoodsFragment;
 import com.pywl.ebangbang_rider.function.message.MessageActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,4 +136,5 @@ public class HomeFragment extends BaseFragment {
             return tabNames.length;
         }
     }
+
 }

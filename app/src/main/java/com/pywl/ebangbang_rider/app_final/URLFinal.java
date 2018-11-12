@@ -10,7 +10,14 @@ public class URLFinal {
      */
     public static final String BASE_URL = "http://116.62.218.136:9055/guozongApp/";
 
+    /**
+     * 登录
+     */
     public static final String LOGIN = "modeleRider/personal/RideLogin";
+    /**
+     * 更新骑手位置
+     */
+    public static final String UPDATA_RIDE_SITE = "modeleRider/personal/updataRideSite";
     /**
      * 正在派送中的数据信息
      */

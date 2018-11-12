@@ -82,7 +82,7 @@ public class HomeWaitingForGoodsPresenter extends BasePresenter<HomeWaitingForGo
             public void onNext(CommonEntity commonEntity) {
                 if (commonEntity.code == 1) {
                     ToastUtils.showShort("确认取货成功");
-                    view.setRefreshing(true);
+                    getDataList();
                 } else {
                     ToastUtils.showShort(commonEntity.msg);
                 }

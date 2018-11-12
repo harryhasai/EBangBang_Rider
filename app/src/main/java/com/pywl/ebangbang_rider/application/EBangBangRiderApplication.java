@@ -2,8 +2,10 @@ package com.pywl.ebangbang_rider.application;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 
 import com.blankj.utilcode.util.Utils;
+import com.pywl.ebangbang_rider.service.WebSocketService;
 
 import java.util.Stack;
 

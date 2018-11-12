@@ -66,6 +66,8 @@
         <activity android:name=".function.feedback.FeedbackActivity" />
         <activity android:name=".function.feedback.FeedbackPreviewActivity" />
         <activity android:name=".function.rules_of_management.RulesOfManagementActivity" />
+        <activity android:name=".function.cancel_order.CancelOrderActivity" />
+        <activity android:name=".function.about.AboutActivity" />
 
         <service android:name=".service.WebSocketService" />
     </application>
