@@ -25,7 +25,6 @@ import com.pywl.ebangbang_rider.function.home.HomeFragment;
 import com.pywl.ebangbang_rider.function.personal_center.PersonalCenterFragment;
 import com.pywl.ebangbang_rider.service.WebSocketService;
 import com.pywl.ebangbang_rider.utils.LocationUtil;
-import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -69,7 +68,6 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     private void initGPS() {
         alertGPSWarning();//提示用户开启GPS
         //注册相关权限
-        RxPermissionsUtils.registerPermissions(this);
 
         locationUtil = LocationUtil.getInstance();
         locationUtil.initLocation(getApplicationContext());

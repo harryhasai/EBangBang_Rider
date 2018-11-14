@@ -1,6 +1,5 @@
 package com.pywl.ebangbang_rider.function.home_be_sending_out.detail;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +8,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +25,6 @@ import com.pywl.ebangbang_rider.app_final.UserInfo;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.base.presenter.BasePresenter;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
-import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 import com.pywl.ebangbang_rider.utils.SPUtils;
 import com.squareup.picasso.Picasso;
 
@@ -79,14 +76,6 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-
-        //询问用户注册权限
-        for (String aPermissionArray : RxPermissionsUtils.permissionArray) {
-            boolean isRegister = RxPermissionsUtils.checkPermissions(this, aPermissionArray);
-            if (!isRegister) {
-                RxPermissionsUtils.registerPermissions(this);
-            }
-        }
 
         tvTitle.setText("派送详情");
         setupData();
@@ -205,18 +194,14 @@ public class HomeBeSendingOutDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_call_phone:
-                if (!RxPermissionsUtils.checkPermissions(this, Manifest.permission.CALL_PHONE)) {
-                    ToastUtils.showShort("拨打电话权限被拒绝, 无法使用该功能");
-                    return;
-                } else {
-                    callPhone("123456");
-                }
+                callPhone("123456");
                 break;
         }
     }
 
     /**
      * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
      * @param phoneNum 电话号码
      */
     public void callPhone(String phoneNum) {

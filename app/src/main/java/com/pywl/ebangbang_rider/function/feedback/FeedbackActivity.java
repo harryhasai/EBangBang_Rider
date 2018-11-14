@@ -1,6 +1,5 @@
 package com.pywl.ebangbang_rider.function.feedback;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
@@ -18,7 +17,6 @@ import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.BaseActivity;
 import com.pywl.ebangbang_rider.utils.ImageUtil;
-import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +57,6 @@ public class FeedbackActivity extends BaseActivity<FeedbackPresenter> {
     protected void initView() {
         ButterKnife.bind(this);
         tvTitle.setText("意见反馈");
-        checkPermissions();
 
         ivPreview.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -109,18 +106,6 @@ public class FeedbackActivity extends BaseActivity<FeedbackPresenter> {
                     mPresenter.commit(desc, ImageUtil.image2Base64(compressPath));
                 }
                 break;
-        }
-    }
-
-    /**
-     * 检查权限
-     */
-    private void checkPermissions() {
-        boolean isGranted = RxPermissionsUtils.checkPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                && RxPermissionsUtils.checkPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                && RxPermissionsUtils.checkPermissions(this, Manifest.permission.CAMERA);
-        if (!isGranted) {
-            RxPermissionsUtils.registerPermissions(this);
         }
     }
 

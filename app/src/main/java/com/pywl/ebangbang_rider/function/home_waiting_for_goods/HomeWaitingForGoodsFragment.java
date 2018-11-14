@@ -1,20 +1,17 @@
 package com.pywl.ebangbang_rider.function.home_waiting_for_goods;
 
-import android.Manifest;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.pywl.ebangbang_rider.R;
 import com.pywl.ebangbang_rider.app_final.DisposableFinal;
 import com.pywl.ebangbang_rider.base.BaseFragment;
 import com.pywl.ebangbang_rider.event_bus.ReceiveMessageEvent;
 import com.pywl.ebangbang_rider.network.entity.HomeWaitingForGoodsEntity;
-import com.pywl.ebangbang_rider.utils.RxPermissionsUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -97,13 +94,8 @@ public class HomeWaitingForGoodsFragment extends BaseFragment<HomeWaitingForGood
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.btn_call_phone:  //联系
-                        if (!RxPermissionsUtils.checkPermissions(HomeWaitingForGoodsFragment.this, Manifest.permission.CALL_PHONE)) {
-                            ToastUtils.showShort("拨打电话权限被拒绝, 无法使用该功能");
-                            return;
-                        } else {
-                            if (mList.size() != 0) {
-                                mPresenter.callPhone(mList.get(position).shopContactsPhone);
-                            }
+                        if (mList.size() != 0) {
+                            mPresenter.callPhone(mList.get(position).shopContactsPhone);
                         }
                         break;
                     case R.id.btn_arrival:  //上报到店
