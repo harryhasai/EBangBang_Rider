@@ -75,7 +75,7 @@ public class RegisterActivity extends BaseActivity {
         countDownTimer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                tvGetIdentifyingCode.setText(millisUntilFinished / 1000 + "后重新获取");
+                tvGetIdentifyingCode.setText(millisUntilFinished / 1000 + "秒后重新获取");
                 tvGetIdentifyingCode.setClickable(false);
             }
 
