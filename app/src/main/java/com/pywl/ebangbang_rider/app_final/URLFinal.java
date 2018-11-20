@@ -15,6 +15,10 @@ public class URLFinal {
      */
     public static final String LOGIN = "modeleRider/personal/RideLogin";
     /**
+     * 健康证
+     */
+    public static final String HEALTH = "modeleRider/personal/selectRideHealthCertificate";
+    /**
      * 更新骑手位置
      */
     public static final String UPDATA_RIDE_SITE = "modeleRider/personal/updataRideSite";

@@ -68,6 +68,7 @@
         <activity android:name=".function.rules_of_management.RulesOfManagementActivity" />
         <activity android:name=".function.cancel_order.CancelOrderActivity" />
         <activity android:name=".function.about.AboutActivity" />
+        <activity android:name=".function.personal_center.health.HealthActivity" />
 
         <service android:name=".service.WebSocketService" />
     </application>

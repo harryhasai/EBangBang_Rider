@@ -20,6 +20,7 @@ import com.pywl.ebangbang_rider.function.completed.CompletedActivity;
 import com.pywl.ebangbang_rider.function.feedback.FeedbackActivity;
 import com.pywl.ebangbang_rider.function.login.LoginActivity;
 import com.pywl.ebangbang_rider.function.personal_center.be_sending_out.BeSendingOutActivity;
+import com.pywl.ebangbang_rider.function.personal_center.health.HealthActivity;
 import com.pywl.ebangbang_rider.function.personal_center.order_taking_manage.OrderTakingManageActivity;
 import com.pywl.ebangbang_rider.function.personal_information.PersonalInformationActivity;
 import com.pywl.ebangbang_rider.function.rules_of_management.RulesOfManagementActivity;
@@ -91,7 +92,7 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
     @OnClick({R.id.tv_pending_distribution, R.id.tv_sign_out,
-            R.id.tv_completed, R.id.tv_be_replaced, /*R.id.fl_health,*/ /*R.id.fl_personal,*/
+            R.id.tv_completed, R.id.tv_be_replaced, R.id.fl_health, /*R.id.fl_personal,*/
             R.id.fl_setting, R.id.fl_manage, R.id.fl_feedback, R.id.fl_about})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -110,9 +111,9 @@ public class PersonalCenterFragment extends BaseFragment {
 //            case R.id.fl_personal:      //个人信息
 //                startActivity(new Intent(mActivity, PersonalInformationActivity.class));
 //                break;
-//            case R.id.fl_health:       //健康证
-//                ToastUtils.showShort("健康证");
-//                break;
+            case R.id.fl_health:       //健康证
+                startActivity(new Intent(mActivity, HealthActivity.class));
+                break;
             case R.id.fl_setting:       //接单设置
                 startActivity(new Intent(mActivity, OrderTakingManageActivity.class));
                 break;
