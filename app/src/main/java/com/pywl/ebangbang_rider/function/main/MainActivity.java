@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -48,6 +50,12 @@ public class MainActivity extends BaseActivity<MainPresenter> {
     @Override
     protected int setupView() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        // super.onSaveInstanceState(outState, outPersistentState);
+        //不保存因为异常原因丢失掉的界面状态
     }
 
     @Override

@@ -91,7 +91,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initConfig() {
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new HomePagerAdapter(getFragmentManager()));
 
         tabLayout.setTabMode(TabLayout.MODE_FIXED);

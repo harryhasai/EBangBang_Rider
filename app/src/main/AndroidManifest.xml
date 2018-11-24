@@ -45,7 +45,8 @@
             android:value="fe8812fc0cd64cb5f3637cc0b2bf39e8" />
         <service android:name="com.amap.api.location.APSService" /><!--定位需要的服务-->
 
-        <activity android:name=".function.splash.SplashActivity"
+        <activity
+            android:name=".function.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBarWithBackGround">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +54,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".function.main.MainActivity" />
+        <activity
+            android:name=".function.main.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".function.login.LoginActivity" />
         <activity android:name=".function.register.RegisterActivity" />
         <activity android:name=".function.forget_password.ForgetPasswordActivity" />
